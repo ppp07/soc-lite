@@ -49,7 +49,8 @@ Base path: `/api/v1`
 | Method | Path | Auth | Description |
 |---|---|---|---|
 | GET | `/health` | public | liveness |
-| GET | `/ready` | public | readiness (DB reachable) |
+| GET | `/ready` | public | readiness (registered dependency checks pass; `503` otherwise). Reports no checks until the DB layer lands (Day 5) |
+| GET | `/api/v1/health` | public | API health under the versioned prefix |
 
 ### Auth
 

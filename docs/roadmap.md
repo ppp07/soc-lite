@@ -10,7 +10,7 @@ Legend: ☐ planned · ◐ in progress · ☑ merged
 | Day | Branch | Deliverable | Status |
 |---|---|---|---|
 | 1 | `docs/architecture` | Architecture, schema, API, security, MITRE, simulation, frontend docs; ADRs; README; PR template; `.gitignore` hardening; repo description | ◐ |
-| 2 | `chore/backend-scaffold` | FastAPI app factory, settings, structured logging, problem+json errors, `/health`, pytest, ruff, mypy, uv | ☐ |
+| 2 | `chore/backend-scaffold` | FastAPI app factory, settings, structured logging, problem+json errors, `/health`, pytest, ruff, mypy, uv | ◐ |
 | 3 | `chore/frontend-scaffold` | Vite + React + TS + Tailwind dark theme tokens, routing, layout shell, ESLint/Prettier, Vitest | ☐ |
 | 4 | `chore/docker-ci` | docker-compose (Mongo with auth), GitHub Actions CI, gitleaks, pip-audit, npm audit, Dependabot; **enable branch protection once CI passes** | ☐ |
 | 5 | `feat/db-layer` | Mongo client (PyMongo async), index bootstrap, repository base, test fixtures | ☐ |

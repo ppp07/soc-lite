@@ -1,8 +1,8 @@
 # Developer Guide
 
-> Status: **Day 1**. Setup commands become available as the scaffold lands (Days 2–4).
+> Status: **Day 2**. Backend setup commands are available; frontend and Docker arrive on Days 3–4.
 
-## Prerequisites (planned)
+## Prerequisites
 
 | Tool | Purpose |
 |---|---|
@@ -10,6 +10,20 @@
 | Docker + Docker Compose | MongoDB and full-stack runs |
 | Python 3.12+ and [uv](https://docs.astral.sh/uv/) | backend |
 | Node.js LTS + npm | frontend |
+
+## Backend quick start
+
+```bash
+cd backend
+uv sync                                                   # install locked dependencies
+uv run uvicorn app.main:app_factory --factory --reload    # http://localhost:8000/health
+uv run pytest --cov                                       # tests
+uv run ruff check . && uv run ruff format --check .       # lint + format
+uv run mypy                                               # strict type check
+```
+
+Configuration is via `SOC_*` environment variables; copy `.env.example` to `.env` (git-ignored).
+See [backend/README.md](../backend/README.md) for layout, configuration, error format and logging.
 
 ## Git workflow
 
