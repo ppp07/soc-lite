@@ -8,7 +8,7 @@
 | [security.md](security.md) | Security architecture, audit logging, threat model, security testing |
 | [mitre-attack.md](mitre-attack.md) | MITRE ATT&CK mapping for detection rules |
 | [simulation.md](simulation.md) | Simulated datasets and reproducible attack scenarios |
-| [frontend.md](frontend.md) | Dark SOC dashboard design system and pages |
+| [frontend.md](frontend.md) | Frontend architecture, design system, pages and current limitations |
 | [development.md](development.md) | Developer guide: workflow, commits, standards, testing |
 | [roadmap.md](roadmap.md) | 30-day milestone plan and status |
 | [adr/](adr/README.md) | Architecture decision records |

@@ -154,7 +154,7 @@ soc-lite/
 │   └── Dockerfile
 ├── frontend/
 │   ├── src/
-│   │   ├── api/  auth/  components/  features/  hooks/  layouts/  types/  theme/
+│   │   ├── api/  components/  features/  hooks/  layouts/  lib/  pages/  sample/  theme/  (auth/ planned)
 │   ├── package.json
 │   └── Dockerfile
 ├── docs/
@@ -196,17 +196,34 @@ soc-lite/
 
 ## 6. Frontend design
 
-See [frontend.md](frontend.md) for the dashboard design system (dark theme, severity
-colors, layout).
+See [frontend.md](frontend.md) for the full frontend architecture, design system and
+current limitations.
 
-- **Stack:** React + TypeScript (Vite), Tailwind CSS, Recharts, React Router,
-  TanStack Query, Zod for runtime validation of API responses.
-- **Structure:** feature folders (`features/alerts`, `features/incidents`, …), each with
-  its pages, components, and API hooks.
+**Implemented (Day 3):** the application shell and routing, the design system, the API
+client, and a dashboard built on clearly labelled simulated data.
+
+- **Stack:** React 19 + TypeScript (Vite), Tailwind CSS 4, Recharts, React Router,
+  TanStack Query, Zod.
+- **Routing:** one route table (`src/routes.ts`) drives the navigation, placeholder pages
+  and the router. Pages are lazy-loaded; error boundaries keep the shell usable if a page
+  crashes.
+- **API layer:** a single `request()` function validates every response with Zod and
+  throws a typed `ApiError`; React Query handles caching and retries (transient failures
+  only). `GET /api/v1/health` is the **only live backend integration**.
+- **Dashboard data:** reads through a `DashboardDataSource` interface. The only
+  implementation is simulated (`src/sample`); the dashboard API contracts are provisional.
+- **Structure:** `api/`, `components/`, `features/<area>/`, `hooks/`, `layouts/`,
+  `sample/`, `theme/`, `lib/`.
+
+**Planned (not yet implemented):**
+
 - **Auth:** access token kept in memory only; refresh token is an `httpOnly` cookie;
-  silent refresh on 401.
+  silent refresh on 401 (Day 8). No authentication or authorization exists in the
+  frontend yet.
 - **Realtime:** a single `useRealtime(topics)` hook manages the WebSocket, reconnects with
-  backoff, and updates React Query caches.
+  backoff, and updates React Query caches (Day 22).
+- Alerts, incidents, events, rules, response, ML, audit and administration pages
+  (Days 14–29); today they are placeholders.
 
 ## 7. Deployment (development)
 

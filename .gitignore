@@ -276,3 +276,18 @@ mongo-data/
 Thumbs.db
 .idea/
 *.swp
+# Playwright CLI output (may contain credentials)
+.playwright-cli/
+
+# Locally installed agent skill bundles (restorable via skills-lock.json)
+.agents/
+.claude/skills/
+# design-taste-frontend gate state and browser profiles (unarmed; never versioned)
+.taste-skill/
+
+# Claude Code per-developer state (never versioned)
+.claude/settings.local.json
+.claude/worktrees/
+
+# Third-party Mastercard-derived design reference (provenance/licence unverified; keep local)
+/DESIGN.md

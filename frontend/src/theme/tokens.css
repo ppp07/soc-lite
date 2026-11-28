@@ -1,0 +1,249 @@
+/*
+ * SOC-Lite design tokens: editorial, light-only.
+ *
+ * Two layers:
+ *   1. REFERENCE scales  (--ref-*)   raw palette steps. Plain custom properties, NOT part of
+ *                                    Tailwind's theme, so no utilities exist for them and
+ *                                    components cannot reach for a raw colour.
+ *   2. SEMANTIC tokens   (@theme)    the only names components use (bg-surface, text-text-muted,
+ *                                    bg-sev-high-soft, ...). They point at reference steps.
+ *
+ * Colour rules
+ *   - The default Tailwind palette is removed (`--color-*: initial`), so `bg-red-500` etc. fail
+ *     to compile into anything. Every colour in the UI is a token defined here.
+ *   - Severity is NEVER conveyed by colour alone: always pair a severity token with its label
+ *     and shape (see ./severity.ts).
+ *   - Coral is an editorial highlight. It is never used to mean severity.
+ *   - Contrast of every text/UI pairing is asserted in ./tokens.contrast.test.ts.
+ */
+
+/* ---------------------------------------------------------------------------------------------
+ * 1. Reference scales
+ * ------------------------------------------------------------------------------------------- */
+:root {
+  /* Sand: warm ivory -> ink neutrals */
+  --ref-sand-25: #fffefa;
+  --ref-sand-50: #fffcf5;
+  --ref-sand-100: #faf6ee;
+  --ref-sand-150: #f3ede0;
+  --ref-sand-200: #e4dac6;
+  --ref-sand-300: #c9bda3;
+  --ref-sand-400: #a39a8a;
+  --ref-sand-500: #8c8270;
+  --ref-sand-600: #6f6657;
+  --ref-sand-700: #5c5447;
+  --ref-sand-800: #3d372e;
+  --ref-sand-900: #1f1b16;
+
+  /* Teal: muted, slightly grey-green */
+  --ref-teal-50: #e8f2f0;
+  --ref-teal-100: #d2e6e2;
+  --ref-teal-200: #a9cfc9;
+  --ref-teal-300: #78b1a9;
+  --ref-teal-400: #4c918a;
+  --ref-teal-500: #2f7770;
+  --ref-teal-600: #25625c;
+  --ref-teal-700: #1e4e49;
+  --ref-teal-800: #173d39;
+  --ref-teal-900: #112e2b;
+
+  /* Coral: restrained, leans rose so it never reads as the "high" severity orange */
+  --ref-coral-50: #fcefec;
+  --ref-coral-100: #f8dbd5;
+  --ref-coral-300: #eba59a;
+  --ref-coral-500: #d9644f;
+  --ref-coral-600: #bd4a3a;
+  --ref-coral-700: #963528;
+
+  /* Severity families: soft (tint) / solid (marks, fills) / ink (text). */
+  --ref-crimson-100: #f8e3e7;
+  --ref-crimson-600: #951a3e;
+  --ref-crimson-800: #7e1432;
+  --ref-orange-100: #fbe8db;
+  --ref-orange-600: #c45a1e;
+  --ref-orange-800: #8f3a0e;
+  --ref-gold-100: #faf0cf;
+  --ref-gold-500: #d19b0f;
+  --ref-gold-800: #6b4e00;
+  --ref-blue-100: #e0ecf7;
+  --ref-blue-600: #2a6cb0;
+  --ref-blue-800: #1f5189;
+  --ref-slate-100: #eeeae0;
+  --ref-slate-600: #6b6559;
+  --ref-slate-800: #4b463c;
+  --ref-green-100: #e3f0e5;
+  --ref-green-600: #3b7a4a;
+  --ref-green-800: #26562f;
+
+  /* Warm-brown shadow base (r g b) so shadows tint the paper instead of greying it */
+  --ref-shadow-rgb: 61 47 22;
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * 2. Semantic tokens (Tailwind v4 CSS-first). `static` keeps every variable in the output so
+ *    charts and inline styles can use var(--color-...) even when no utility references it.
+ * ------------------------------------------------------------------------------------------- */
+@theme static {
+  /* Remove Tailwind defaults for namespaces we own */
+  --color-*: initial;
+  --text-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+  --font-*: initial;
+
+  /* ---- Colour: neutrals ---- */
+  --color-transparent: transparent;
+  --color-current: currentcolor;
+
+  --color-bg: var(--ref-sand-100); /* page: warm ivory */
+  --color-surface: var(--ref-sand-50); /* cards, panels: cream */
+  --color-surface-raised: var(--ref-sand-25); /* popovers, menus, hovered cards */
+  --color-surface-sunken: var(--ref-sand-150); /* wells, table headers, code blocks */
+  --color-overlay: rgb(31 27 22 / 0.4); /* modal / drawer scrim */
+
+  --color-border: var(--ref-sand-200); /* decorative separators */
+  --color-border-strong: var(--ref-sand-300); /* hover / emphasised dividers */
+  --color-border-control: var(--ref-sand-500); /* input & button outlines: >= 3:1 (WCAG 1.4.11) */
+
+  --color-text: var(--ref-sand-900);
+  --color-text-muted: var(--ref-sand-700);
+  --color-text-subtle: var(--ref-sand-600); /* captions, timestamps: still >= 4.5:1 */
+  --color-text-disabled: var(--ref-sand-400); /* exempt from contrast; never carries meaning */
+  --color-text-inverse: var(--ref-sand-50);
+
+  /* ---- Colour: accent (muted teal) ---- */
+  --color-accent: var(--ref-teal-600);
+  --color-accent-hover: var(--ref-teal-700);
+  --color-accent-active: var(--ref-teal-800);
+  --color-accent-fg: var(--ref-sand-50); /* text on accent */
+  --color-accent-soft: var(--ref-teal-50);
+  --color-accent-soft-hover: var(--ref-teal-100);
+  --color-accent-ink: var(--ref-teal-700); /* links and text on soft/bg */
+  --color-focus: var(--ref-teal-600); /* focus ring */
+
+  /* ---- Colour: coral highlight (editorial emphasis, not severity) ---- */
+  --color-coral: var(--ref-coral-600);
+  --color-coral-bright: var(--ref-coral-500); /* decorative marks only */
+  --color-coral-fg: var(--ref-sand-50);
+  --color-coral-soft: var(--ref-coral-50);
+  --color-coral-ink: var(--ref-coral-700);
+
+  /* ---- Colour: severity. solid = mark/fill, soft = tint background, ink = text ---- */
+  --color-sev-critical: var(--ref-crimson-600);
+  --color-sev-critical-soft: var(--ref-crimson-100);
+  --color-sev-critical-ink: var(--ref-crimson-800);
+  --color-sev-high: var(--ref-orange-600);
+  --color-sev-high-soft: var(--ref-orange-100);
+  --color-sev-high-ink: var(--ref-orange-800);
+  --color-sev-medium: var(--ref-gold-500);
+  --color-sev-medium-soft: var(--ref-gold-100);
+  --color-sev-medium-ink: var(--ref-gold-800);
+  --color-sev-low: var(--ref-blue-600);
+  --color-sev-low-soft: var(--ref-blue-100);
+  --color-sev-low-ink: var(--ref-blue-800);
+  --color-sev-info: var(--ref-slate-600);
+  --color-sev-info-soft: var(--ref-slate-100);
+  --color-sev-info-ink: var(--ref-slate-800);
+
+  /* ---- Colour: status (state, not severity) ---- */
+  --color-status-ok: var(--ref-green-600);
+  --color-status-ok-soft: var(--ref-green-100);
+  --color-status-ok-ink: var(--ref-green-800);
+  /* Warning / error / info reuse the severity families so one meaning has one colour. */
+  --color-status-warning: var(--color-sev-medium);
+  --color-status-warning-soft: var(--color-sev-medium-soft);
+  --color-status-warning-ink: var(--color-sev-medium-ink);
+  --color-status-danger: var(--color-sev-critical);
+  --color-status-danger-soft: var(--color-sev-critical-soft);
+  --color-status-danger-ink: var(--color-sev-critical-ink);
+  --color-status-info: var(--color-sev-low);
+  --color-status-info-soft: var(--color-sev-low-soft);
+  --color-status-info-ink: var(--color-sev-low-ink);
+
+  /* ---- Colour: charts. Aliases of existing tokens only; no new palette. ---- */
+  --color-chart-grid: var(--color-border);
+  --color-chart-axis: var(--color-text-muted);
+  --color-chart-line: var(--color-accent);
+  --color-chart-area: var(--color-accent-soft-hover);
+
+  /* ---- Typography ---- */
+  --font-display:
+    'Fraunces Variable', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --font-sans:
+    'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --font-mono:
+    'JetBrains Mono Variable', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas,
+    'Liberation Mono', monospace;
+
+  /* Dense-console scale: `base` is 14px interface text; the root stays 16px for rem. */
+  --text-2xs: 0.6875rem; /* 11px: overlines only */
+  --text-2xs--line-height: 1rem;
+  --text-xs: 0.75rem; /* 12px: captions, table meta */
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 0.8125rem; /* 13px: dense tables, badges */
+  --text-sm--line-height: 1.25rem;
+  --text-base: 0.875rem; /* 14px: default interface text */
+  --text-base--line-height: 1.375rem;
+  --text-lg: 1rem; /* 16px: lead / card titles */
+  --text-lg--line-height: 1.5rem;
+  --text-xl: 1.25rem; /* 20px: section headings (display) */
+  --text-xl--line-height: 1.75rem;
+  --text-2xl: 1.625rem; /* 26px: page titles (display) */
+  --text-2xl--line-height: 2rem;
+  --text-3xl: 2.125rem; /* 34px: KPI numerals (display) */
+  --text-3xl--line-height: 2.5rem;
+  --text-4xl: 2.75rem; /* 44px: hero numerals (display) */
+  --text-4xl--line-height: 3rem;
+
+  --tracking-display: -0.015em;
+  --tracking-label: 0.06em;
+
+  /* ---- Spacing: Tailwind's 4px base plus a few layout roles ---- */
+  --spacing: 0.25rem;
+  --spacing-gutter: 1.5rem; /* page edge padding */
+  --spacing-card: 1.25rem; /* card inner padding */
+  --spacing-stack: 1rem; /* default gap between stacked blocks */
+  --spacing-section: 2rem; /* gap between page sections */
+
+  /* ---- Radii: modest. `full` is for avatars and status dots only. ---- */
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  /* ---- Shadows: warm, low and soft; elevation is subtle ---- */
+  --shadow-xs: 0 1px 0 rgb(var(--ref-shadow-rgb) / 0.05);
+  --shadow-sm:
+    0 1px 2px rgb(var(--ref-shadow-rgb) / 0.07), 0 1px 1px rgb(var(--ref-shadow-rgb) / 0.04);
+  --shadow-md:
+    0 4px 12px -2px rgb(var(--ref-shadow-rgb) / 0.09),
+    0 2px 4px -2px rgb(var(--ref-shadow-rgb) / 0.06);
+  --shadow-lg:
+    0 14px 32px -8px rgb(var(--ref-shadow-rgb) / 0.16),
+    0 4px 8px -4px rgb(var(--ref-shadow-rgb) / 0.08);
+
+  /* ---- Motion ---- */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
+  --animate-fade-in: fade-in 160ms var(--ease-standard) both;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+:root {
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+}
