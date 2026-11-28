@@ -9,6 +9,18 @@
     font-family: var(--font-sans);
     text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
+    /* A subtle teal tap flash on touch devices instead of the platform default grey. */
+    -webkit-tap-highlight-color: color-mix(in srgb, var(--color-accent) 14%, transparent);
+    /* The sticky top bar (3.5rem) must never cover an element that receives focus. */
+    scroll-padding-top: 4.5rem;
+  }
+
+  /* No double-tap-zoom delay on controls. */
+  a,
+  button,
+  summary,
+  [role='button'] {
+    touch-action: manipulation;
   }
 
   body {
@@ -125,4 +137,11 @@
   font-variant-numeric: tabular-nums slashed-zero;
   font-variant-ligatures: none;
   overflow-wrap: anywhere;
+}
+
+/* A modal navigation drawer must not let the page behind it scroll. */
+@layer base {
+  body:has(dialog[open]) {
+    overflow: hidden;
+  }
 }
