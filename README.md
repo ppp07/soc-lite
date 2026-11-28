@@ -6,7 +6,7 @@ threat detection and simulated incident response platform built with **Python Fa
 
 It ingests security logs, normalizes them, detects threats with MITRE ATT&CK-mapped
 rules and machine-learning anomaly detection, manages alerts and incidents, and runs
-**simulated** automated response playbooks. All of this is shown on a dark-themed SOC
+**simulated** automated response playbooks. All of this is shown on a SOC
 dashboard with live updates.
 
 > ⚠️ **Simulation only.** SOC-Lite is a learning and demonstration platform. It runs on
@@ -15,7 +15,7 @@ dashboard with live updates.
 
 ## Project status
 
-🚧 **In development. Day 1 of 30: architecture and design.**
+🚧 **In development. Day 3 of 30: architecture, backend scaffold and frontend foundation.**
 Track progress in the [roadmap](docs/roadmap.md).
 
 ## Features (planned)
@@ -28,7 +28,7 @@ Track progress in the [roadmap](docs/roadmap.md).
 | 4 | Suspicious login detection | Impossible travel, new country, off-hours, success-after-failures |
 | 5 | Brute-force detection | Classic, password spraying, distributed |
 | 6 | Alert management | Dedup, lifecycle, assignment, comments, evidence |
-| 7 | SOC dashboard | Dark theme, Recharts, severity indicators, MITRE heatmap, live feed |
+| 7 | SOC dashboard | Light editorial theme, Recharts, severity indicators, MITRE heatmap, live feed |
 | 8 | Incident tracking | Alert grouping, timeline, MTTA/MTTR |
 | 9 | Automated response (simulated) | Playbooks, approval, dry-run, revert, simulated blocklist |
 | 10 | ML anomaly detection | Scikit-learn IsolationForest, versioned model registry |
@@ -82,9 +82,9 @@ Full details: [docs/architecture.md](docs/architecture.md).
 
 ## Getting started
 
-Installation instructions will be added as the backend, frontend and Docker Compose
-scaffolding land (Days 2–4). Planned prerequisites: Docker, Python 3.12+ with `uv`,
-Node.js LTS.
+Backend and frontend setup commands are in the [developer guide](docs/development.md).
+Full installation instructions will be added as Docker Compose lands (Day 4).
+Planned prerequisites: Docker, Python 3.12+ with `uv`, Node.js 22.22+.
 
 ## Contributing
 
