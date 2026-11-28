@@ -1,0 +1,12 @@
+/*
+ * Self-hosted variable fonts (SIL OFL 1.1) via Fontsource. No external font CDN, so the
+ * eventual CSP can stay `font-src 'self'`. Each package ships unicode-range subsets; the
+ * browser downloads only the subsets a page actually uses.
+ *
+ *   Fraunces       display headings and KPI numerals (weight + optical-size axes)
+ *   Inter          interface text and labels
+ *   JetBrains Mono IP addresses, timestamps, IDs, raw log data
+ */
+@import '@fontsource-variable/fraunces/opsz.css';
+@import '@fontsource-variable/inter/wght.css';
+@import '@fontsource-variable/jetbrains-mono/wght.css';
