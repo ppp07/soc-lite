@@ -39,6 +39,31 @@ export default tseslint.config(
     },
   },
   {
+    // Simulated data stays out of production code: only the dashboard's composition root
+    // (features/dashboard/dataSource.ts), the sample module itself and tests may import it.
+    files: ['src/**/*.{ts,tsx}'],
+    ignores: [
+      'src/sample/**',
+      'src/features/dashboard/dataSource.ts',
+      'src/**/*.test.{ts,tsx}',
+      'src/test/**',
+    ],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '(^|/)sample(/|$)',
+              message:
+                'Simulated data may only be imported by features/dashboard/dataSource.ts. Production code must not depend on it.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
     files: ['vite.config.ts'],
     languageOptions: { globals: globals.node },
   },

@@ -29,6 +29,13 @@ export function setViewportWidth(px: number): void {
 export function installDomShims(): void {
   if (typeof window === 'undefined') return // node-environment test files
 
+  // Recharts' ResponsiveContainer observes its size. jsdom has no layout, so observe nothing.
+  globalThis.ResizeObserver ??= class ResizeObserver {
+    observe(): void {}
+    unobserve(): void {}
+    disconnect(): void {}
+  }
+
   window.matchMedia = (query: string): MediaQueryList => {
     const handlers = new Set<EventListenerOrEventListenerObject>()
     let last = matches(query)

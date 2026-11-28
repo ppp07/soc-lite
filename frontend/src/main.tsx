@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router/dom'
 
+import { QueryProvider } from './api/QueryProvider'
 import './index.css'
 import { createAppRouter } from './router'
 
@@ -10,6 +11,8 @@ if (!container) throw new Error('Root element #root not found')
 
 createRoot(container).render(
   <StrictMode>
-    <RouterProvider router={createAppRouter()} />
+    <QueryProvider>
+      <RouterProvider router={createAppRouter()} />
+    </QueryProvider>
   </StrictMode>,
 )

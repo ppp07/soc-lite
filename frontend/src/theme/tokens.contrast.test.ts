@@ -117,6 +117,13 @@ describe('WCAG AA: non-text UI (>= 3:1)', () => {
     }
   })
 
+  it('chart axis text meets 4.5:1 and the chart line meets 3:1 on every surface', () => {
+    for (const surface of SURFACES) {
+      expect(ratio('chart-axis', surface)).toBeGreaterThanOrEqual(4.5)
+      expect(ratio('chart-line', surface)).toBeGreaterThanOrEqual(3)
+    }
+  })
+
   it('accent and coral marks are visible on every surface', () => {
     for (const surface of SURFACES) {
       expect(ratio('accent', surface)).toBeGreaterThanOrEqual(3)

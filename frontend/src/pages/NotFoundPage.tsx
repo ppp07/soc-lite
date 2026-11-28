@@ -1,4 +1,4 @@
-import { ButtonLink } from '../components/ButtonLink'
+import { LinkButton } from '../components/ui/LinkButton'
 import { EmptyState } from '../components/EmptyState'
 import { PageHeader } from '../components/PageHeader'
 import { DEFAULT_PATH } from '../routes'
@@ -12,7 +12,7 @@ export default function NotFoundPage() {
         The address may be mistyped, or the page may have moved.
       </EmptyState>
       <div className="mt-stack">
-        <ButtonLink to={DEFAULT_PATH}>Back to the dashboard</ButtonLink>
+        <LinkButton to={DEFAULT_PATH}>Back to the dashboard</LinkButton>
       </div>
     </>
   )

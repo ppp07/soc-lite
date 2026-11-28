@@ -13,7 +13,7 @@ import AppShell from './AppShell'
 
 describe('AppShell: desktop', () => {
   it('exposes the expected landmarks', async () => {
-    renderApp('/dashboard', DESKTOP)
+    renderApp('/dashboard', { width: DESKTOP })
     await screen.findByRole('heading', { level: 1, name: 'Dashboard' })
     expect(screen.getAllByRole('banner')).toHaveLength(1)
     expect(screen.getAllByRole('main')).toHaveLength(1)
@@ -23,7 +23,7 @@ describe('AppShell: desktop', () => {
 
   it('makes the skip link the first tab stop and points it at <main>', async () => {
     const user = userEvent.setup()
-    renderApp('/dashboard', DESKTOP)
+    renderApp('/dashboard', { width: DESKTOP })
     await screen.findByRole('heading', { level: 1, name: 'Dashboard' })
     await user.tab()
     const skip = screen.getByRole('link', { name: 'Skip to main content' })
@@ -33,7 +33,7 @@ describe('AppShell: desktop', () => {
   })
 
   it('lists every section, grouped, with icons hidden from assistive tech', async () => {
-    renderApp('/dashboard', DESKTOP)
+    renderApp('/dashboard', { width: DESKTOP })
     await screen.findByRole('heading', { level: 1, name: 'Dashboard' })
     const nav = screen.getByRole('navigation', { name: 'Primary' })
     for (const group of NAV_GROUPS) {
@@ -44,7 +44,7 @@ describe('AppShell: desktop', () => {
   })
 
   it('marks only the current page with aria-current', async () => {
-    renderApp('/alerts', DESKTOP)
+    renderApp('/alerts', { width: DESKTOP })
     await screen.findByRole('heading', { level: 1, name: 'Alerts' })
     const nav = screen.getByRole('navigation', { name: 'Primary' })
     const current = within(nav)
@@ -56,7 +56,7 @@ describe('AppShell: desktop', () => {
 
   it('updates the active link when navigating', async () => {
     const user = userEvent.setup()
-    renderApp('/alerts', DESKTOP)
+    renderApp('/alerts', { width: DESKTOP })
     await screen.findByRole('heading', { level: 1, name: 'Alerts' })
     await user.click(screen.getByRole('link', { name: 'Events' }))
     await screen.findByRole('heading', { level: 1, name: 'Events' })
@@ -65,7 +65,7 @@ describe('AppShell: desktop', () => {
   })
 
   it('labels Audit and Administration as admin areas without claiming access control', async () => {
-    renderApp('/audit', DESKTOP)
+    renderApp('/audit', { width: DESKTOP })
     await screen.findByRole('heading', { level: 1, name: 'Audit' })
     const nav = screen.getByRole('navigation', { name: 'Primary' })
     for (const name of [/^Audit/, /^Administration/]) {
@@ -77,27 +77,27 @@ describe('AppShell: desktop', () => {
   })
 
   it('has no menu button or dialog on desktop', async () => {
-    renderApp('/dashboard', DESKTOP)
+    renderApp('/dashboard', { width: DESKTOP })
     await screen.findByRole('heading', { level: 1, name: 'Dashboard' })
     expect(screen.queryByRole('button', { name: 'Open navigation' })).not.toBeInTheDocument()
     expect(document.querySelector('dialog')).toBeNull()
   })
 
   it('renders placeholder controls as genuinely disabled, with accessible names', async () => {
-    renderApp('/dashboard', DESKTOP)
+    renderApp('/dashboard', { width: DESKTOP })
     await screen.findByRole('heading', { level: 1, name: 'Dashboard' })
     for (const name of [/Time range.*not available yet/, /Account.*not available yet/]) {
       expect(screen.getByRole('button', { name })).toBeDisabled()
     }
     expect(screen.getByRole('searchbox', { name: /Search.*not available yet/ })).toBeDisabled()
-    expect(screen.getByText('Sample data')).toBeVisible()
+    expect(within(screen.getByRole('banner')).getByText('Sample data')).toBeVisible()
   })
 })
 
 describe('AppShell: mobile drawer', () => {
   const open = async (path = '/dashboard') => {
     const user = userEvent.setup()
-    renderApp(path, MOBILE)
+    renderApp(path, { width: MOBILE })
     await screen.findByRole('heading', { level: 1, name: /.+/ })
     const toggle = screen.getByRole('button', { name: 'Open navigation' })
     return { user, toggle }
@@ -167,7 +167,7 @@ describe('AppShell: mobile drawer', () => {
 
   it('closes when the route changes by other means (browser back)', async () => {
     const user = userEvent.setup()
-    const { router } = renderApp('/dashboard', MOBILE)
+    const { router } = renderApp('/dashboard', { width: MOBILE })
     await screen.findByRole('heading', { level: 1, name: 'Dashboard' })
     await router.navigate('/alerts')
     await screen.findByRole('heading', { level: 1, name: 'Alerts' })
@@ -179,7 +179,7 @@ describe('AppShell: mobile drawer', () => {
   })
 
   it('switches between drawer and sidebar when the viewport crosses the breakpoint', async () => {
-    renderApp('/dashboard', DESKTOP)
+    renderApp('/dashboard', { width: DESKTOP })
     await screen.findByRole('heading', { level: 1, name: 'Dashboard' })
     expect(screen.getByRole('complementary')).toBeInTheDocument()
     setViewportWidth(MOBILE)

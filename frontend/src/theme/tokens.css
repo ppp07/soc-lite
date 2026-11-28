@@ -162,6 +162,12 @@
   --color-status-info-soft: var(--color-sev-low-soft);
   --color-status-info-ink: var(--color-sev-low-ink);
 
+  /* ---- Colour: charts. Aliases of existing tokens only; no new palette. ---- */
+  --color-chart-grid: var(--color-border);
+  --color-chart-axis: var(--color-text-muted);
+  --color-chart-line: var(--color-accent);
+  --color-chart-area: var(--color-accent-soft-hover);
+
   /* ---- Typography ---- */
   --font-display:
     'Fraunces Variable', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
